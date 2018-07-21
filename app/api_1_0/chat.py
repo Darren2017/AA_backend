@@ -63,7 +63,7 @@ def recoder():
             "time": time,
             "ps": ps,
             "customer_name":customer_name,
-            "customer_image":customer_image,
+            "customer_header_image":customer_image,
             "chat_id":chat_id
         })
 
