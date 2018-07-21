@@ -3,10 +3,10 @@ import os
 DIALECT = 'mysql'
 DRIVER = 'pymysql'
 USERNAME = 'root' #os.environ.get('MYSQLUSER')
-PASSWORD = 'root' #os.environ.get('MYSQLPASSWORD')
+PASSWORD = 'tan' #os.environ.get('MYSQLPASSWORD')
 HOST = '127.0.0.1' #os.environ.get('MYSQLHOST')
 PORT = '3306'
-DATABASE = 'AAbackend'
+DATABASE = 'demo1'
 
 
 class Config:

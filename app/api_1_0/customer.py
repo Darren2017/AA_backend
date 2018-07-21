@@ -11,12 +11,12 @@ def customer_main():
     id = request.get_json().get('id')
     pagenumber = request.get_json().get('pagenumber')
 
-    customer = Customer.query.filter_by(id=id).first()
+    customer = Customer.query.filter_by(id=id)
     if customer.confirm(token):
         relist = []
         allre = []
         recoder = Recoder.query.all()
-        for r in recoder:
+        for m in recoder:
             if m.customer_id == id:
                 allre.append(m.id)
         allre.sort(reverse=True)
@@ -25,8 +25,7 @@ def customer_main():
             re = allre[(pagenumber - 1) * 10:pagenumber*10]
             test = allre[9]
         except:
-            re = allre[(pagenumber - 1) * 10]
-
+            re = allre[:(pagenumber - 1) * 10]
         for m in re:
             rec = Recoder.query.filter_by(id=m).first()
             id = rec.id
@@ -34,7 +33,7 @@ def customer_main():
             price = rec.price
             time = rec.time
             ps = rec.time
-            chat_id = m.chat_id
+            chat_id = rec.chat_id
             relist.append({
                 "id":id,
                 "myclass":myclass,
@@ -66,7 +65,7 @@ def recoder():
         customer_name = customer.username
 
 
-        re = Recoder(customer_id=id, myclass=myclass, price=price, time=time, ps=ps, customer_name=customer_name, customer_header_image=customer_image, chat_id="")
+        re = Recoder(customer_id=id, myclass=myclass, price=price, time=time, ps=ps, customer_name=customer_name, customer_header_image=customer_image, chat_id=0)
 
         try:
             db.session.add(re)
