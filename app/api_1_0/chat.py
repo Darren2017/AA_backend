@@ -21,15 +21,14 @@ def chat_main():
             count = len(ch)
             for c in ch:
                 cid = c.id
-                chatname = c.chatname
+                chatname = c.username
                 chatimage = c.chatimage
-                cha = {
+               	chatlist.append({
                     "id": cid,
                     "chatname": chatname,
                     "chatimage": chatimage,
                     "count": count
-                }
-                chatlist.append(cha)
+                })
             return jsonify({
                 "chatlist": chatlist
             }), 200
@@ -118,6 +117,7 @@ def invitation():
 @api.route('/chat/water/', methods=['POST'])
 def water():
     token = request.headers['token']
+    uid = request.get_json().get('id')
     cid = request.get_json().get('chat_id')
     customer = Customer.query.filter_by(id=uid).first()
     if customer.confirm(token):
@@ -126,8 +126,8 @@ def water():
             chat = Recoder.query.filter_by(id=cid)
             for c in chat:
                 ch = {
-                    "day":c.time[8:10],
-                    "year_month":c.time[:8],
+                    "day":c.time[7:9],
+                    "year_month":c.time[:7],
                     "myclass":c.myclass,
                     "price":c.price,
                     "customer_name":c.customer_name,
