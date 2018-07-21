@@ -143,3 +143,24 @@ def water():
     else:
         return jsonify({
         }),401
+
+
+@api.route('/chat/member/', methods=['POST'])
+def member():
+    token = request.headers['token']
+    uid = request.get_json().get('id')
+    cid = request.get_json().get('chat_id')
+    customer = Customer.query.filter_by(id=uid).first()
+    if customer.confirm(token):
+        try:
+            chat = Chat.query.filter_by(id=cid).first()
+            ans = chat.customer_id.split(';')
+            return jsonify({
+                "list":ans
+            }),200
+        except:
+            return jsonify({
+            }), 500
+    else:
+        return jsonify({
+        }),401

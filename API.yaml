@@ -379,11 +379,17 @@ paths:
         required: true
         type: string
         description: 用户验证
-      - in: header
-        name: chat_id
-        required: true
-        type: integer
-        description: 群聊ID
+      - name: info
+        in: body
+        schema: 
+          required: 
+            - user_id
+            - chat_id
+          properties:
+            user_id:
+              type: string
+            chat_id:
+              type: integer
       responses:
         200:
           description: OK 
@@ -414,6 +420,37 @@ paths:
           description: forbidden
         500:
           description: server wrong
+
+  /chat/member/:
+    post:
+      tags:
+      - "chat"
+      summary: 成员列表
+      description: nothing
+      parameters:
+      - in: header
+        name: token
+        required: true
+        type: string
+      - name: info
+        in: body
+        schema: 
+          required: 
+            - user_id
+            - chat_id
+          properties:
+            user_id:
+              type: string
+            chat_id:
+              type: integer
+      responses: 
+        200:
+          description: OK
+        401:
+          description: forbidden
+        500: 
+          description: server wrong
+    
 
 definitions:
   Recoder:
