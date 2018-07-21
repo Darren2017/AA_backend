@@ -5,7 +5,7 @@ from flask import request, jsonify, session
 from app.models import Customer, Recoder, Chat
 
 
-@api.route('/chat/main', methods=['POST'])
+@api.route('/chat/main/', methods=['POST'])
 def chat_main():
     token = request.headers['token']
     id = request.get_json().get('id')
@@ -42,7 +42,7 @@ def chat_main():
 
 
 @api.route('/chat/recoder/', methods=['POST'])
-def recoder():
+def crecoder():
     token = request.headers['token']
     id = request.get_json().get('id')
     myclass = request.get_json().get('myclass')
@@ -56,16 +56,16 @@ def recoder():
         customer_name = customer.username
 
 
-        re = Recoder({
-            "customer_id": id,
-            "myclass": myclass,
-            "price": price,
-            "time": time,
-            "ps": ps,
-            "customer_name":customer_name,
-            "customer_header_image":customer_image,
-            "chat_id":chat_id
-        })
+        re = Recoder(
+            "customer_id"=id,
+            "myclass"=myclass,
+            "price"=price,
+            "time"=time,
+            "ps"=ps,
+            "customer_name"=customer_name,
+            "customer_header_image"=customer_image,
+            "chat_id"=chat_id
+        )
 
         try:
             db.session.add(re)

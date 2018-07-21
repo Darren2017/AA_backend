@@ -66,16 +66,7 @@ def recoder():
         customer_name = customer.username
 
 
-        re = Recoder({
-            "customer_id": id,
-            "myclass": myclass,
-            "price": price,
-            "time": time,
-            "ps": ps,
-            "customer_name":customer_name,
-            "customer_header_image":customer_image,
-            "chat_id":""
-        })
+#        re = Recoder("customer_id"=id, "myclass"=myclass, "price"=price, "time"=time, "ps"=ps, "customer_name"=customer_name, "customer_header_image"=customer_image, "chat_id"="")
 
         try:
             db.session.add(re)
