@@ -43,7 +43,7 @@ paths:
         401:
           description: 用户认证失败
 
-  /customer/signop/:
+  /customer/signup/:
     post:
       tags:
       - "auth"
@@ -55,6 +55,19 @@ paths:
         description: openid
         type: string
         required: true
+      - name: info
+        in: body
+        schema:
+            required: 
+              - username
+              - headimage
+            properties:
+              username: 
+                description: name
+                type: string
+              headimage:
+                description: 头像
+                type: string
       responses:
         200:
           description: OK 
