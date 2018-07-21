@@ -20,12 +20,12 @@ tags:
 
 paths:
 
-  /oppenid/:
+  /openid/:
     get:
       tags:
       - "auth"
-      summary: 获取oppenid
-      description: 访问获取oppenid
+      summary: 获取openid
+      description: 访问获取openid
       parameters:
         - in: header
           name: code
@@ -36,9 +36,9 @@ paths:
           description: OK
           schema:
             required: 
-              - oppenid
+              - openid
             properties: 
-              oppenid:
+              openid:
                 type: string
         401:
           description: 用户认证失败
@@ -52,7 +52,7 @@ paths:
       parameters:
       - name: openid
         in: header
-        description: oppenid
+        description: openid
         type: string
         required: true
       responses:
@@ -71,8 +71,8 @@ paths:
       description: 登陆
       parameters:
         - in: header
-          name: oppenid
-          description: oppenid
+          name: openid
+          description: openid
           type: string
       responses:
         200:
@@ -114,14 +114,14 @@ paths:
             items: 
               required:
                 - id
-                - class
+                - myclass
                 - price
                 - time
                 - ps
               properties:
                 id: 
                   type: string
-                class:
+                myclass:
                   type: string
                 price:
                   type: integer
@@ -154,12 +154,12 @@ paths:
           in: body
           schema:
             required: 
-              - class
+              - myclass
               - price
               - time
               - ps
             properties:
-              class:
+              myclass:
                 description: 消费类别
                 type: string
               price:
@@ -254,14 +254,14 @@ paths:
             items:
               required:
                 - id
-                - class
+                - myclass
                 - price
                 - time
                 - ps
               properties:
                 id: 
                   type: string
-                class:
+                myclass:
                   type: string
                 price:
                   type: integer
@@ -280,18 +280,16 @@ definitions:
     type: object
     required: 
       - id
-      - class
+      - myclass
       - price
       - time
       - customer_id
-      - customer_name
-      - customer_header_image
       - ps
     properties:
       id:
         description: 消费记录ID
         type: integer
-      class:
+      myclass:
         description: 消费类别
         type: string
       price:
@@ -304,7 +302,7 @@ definitions:
         description: 消费者ID
         type: integer
       customer_name:
-        description: 消费者头像
+        description: 消费者昵称
         type: string
       customer_header_image:
         description: 消费者头像
@@ -350,12 +348,12 @@ definitions:
       - customer_id
       - consumption
       - ps
-      - class1
-      - class2
-      - class3
-      - class4
-      - class5
-      - class6
+      - myclass1
+      - myclass2
+      - myclass3
+      - myclass4
+      - myclass5
+      - myclass6
     properties:
       id:
         description: 群聊ID
@@ -372,33 +370,33 @@ definitions:
       ps:
         description:  群聊描述
         type: string
-      class1:
+      myclass1:
         description: 消费类别1的花费
         type: integer
-      class2:
+      myclass2:
         description: 消费类别2的花费
         type: integer
-      class3:
+      myclass3:
         description: 消费类别3的花费
         type: integer
-      class4:
+      myclass4:
         description: 消费类别4的花费
         type: integer
-      class5:
+      myclass5:
         description: 消费类别5的花费
         type: integer
-      class6:
+      myclass6:
         description: 消费类别6的花费
         type: integer
-      class7:
+      myclass7:
         description: 消费类别7的花费
         type: integer
-      class8:
+      myclass8:
         description: 消费类别8的花费
         type: integer
-      class9:
+      myclass9:
         description: 消费类别9的花费
         type: integer
-      class10:
+      myclass10:
         description: 消费类别10的花费
         type: integer
