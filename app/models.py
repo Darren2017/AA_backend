@@ -32,7 +32,7 @@ class Customer(db.Model):
 
 class Recoder(db.Model):
     __tablename__= 'recoder'
-    id = db.Column(db.String(30), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     myclass = db.Column(db.String(30), nullable=False)
     price = db.Column(db.Float, nullable=False)
     time = db.Column(db.String(50), nullable=False)
@@ -49,6 +49,7 @@ class Chat(db.Model):
         username = db.Column(db.String(40), nullable=False)
         customer_id = db.Column(db.String(50), nullable=False)
         consumption = db.Column(db.Float, nullable=False)
+        chatimage = db.Column(db.Text, nullable=True)
         ps = db.Column(db.Text, nullable=True)
         myclass1 = db.Column(db.Float, nullable=True)
         myclass2 = db.Column(db.Float, nullable=True)
