@@ -3,27 +3,22 @@ from flask import current_app
 from . import db
 
 
-calss Customer(db.Model):
+class Customer(db.Model):
     __tablename__ = 'customer'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, nullable=False)
-    chat_id = db.Column(db.String, nullable=True)
-    consumption = db.Column(db.Integer, nullable=False)
-    class1 = db.Column(db.Integer, nullable=False)
-    class2 = db.Column(db.Integer, nullable=False)
-    class3 = db.Column(db.Integer, nullable=False)
-    class4 = db.Column(db.Integer, nullable=False)
-    class5 = db.Column(db.Integer, nullable=False)
-    class6 = db.Column(db.Integer, nullable=False)
+    id = db.Column(db.String(30), primary_key=True)
+    username = db.Column(db.String(30), nullable=False)
+    headimage = db.Column(db.Text, nullable=False)
+    chat_id = db.Column(db.Text, nullable=True)
+    consumption = db.Column(db.Float, nullable=False)
 
     confirmed = db.Column(db.Boolean, default=False)
 
     def generate_confirmation_token(self, expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'confirm':self.id})
+        return s.dumps({'confirm': self.id})
 
     def confirm(self, token):
-        s= Serializer(current_app.config['SECRET_KEY'])
+        s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
         except:
@@ -37,8 +32,25 @@ calss Customer(db.Model):
 
 class Recoder(db.Model):
     __tablename__= 'recoder'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    myclass = db.Column(db.String, nullable=False)
-    price = db.Column(db.Integer, nullable=False)
-    time = db.Column(db.String, nullable=False)
-    customer_id = db.Column(db.Integer, )
+    id = db.Column(db.String(30), primary_key=True)
+    myclass = db.Column(db.String(30), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    time = db.Column(db.String(50), nullable=False)
+    customer_id = db.Column(db.String(50), nullable=False)
+    customer_name = db.Column(db.String(40), nullable=True)
+    customer_header_image = db.Column(db.Text, nullable=False)
+    chat_id = db.Column(db.Integer, nullable=True)
+    ps = db.Column(db.Text, nullable=False)
+
+
+class Chat(db.Model):
+        __tablename__='chat'
+        id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+        username = db.Column(db.String(40), nullable=False)
+        customer_id = db.Column(db.String(50), nullable=False)
+        consumption = db.Column(db.Float, nullable=False)
+        ps = db.Column(db.Text, nullable=True)
+        myclass1 = db.Column(db.Float, nullable=True)
+        myclass2 = db.Column(db.Float, nullable=True)
+        myclass3 = db.Column(db.Float, nullable=True)
+        myclass4 = db.Column(db.Float, nullable=True)

@@ -2,9 +2,9 @@ import os
 
 DIALECT = 'mysql'
 DRIVER = 'pymysql'
-USERNAME = os.environ.get('MYSQLUSER')
-PASSWORD = os.environ.get('MYSQLPASSWORD')
-HOST = os.environ.get('MYSQLHOST')
+USERNAME = 'root' #os.environ.get('MYSQLUSER')
+PASSWORD = 'root' #os.environ.get('MYSQLPASSWORD')
+HOST = '127.0.0.1' #os.environ.get('MYSQLHOST')
 PORT = '3306'
 DATABASE = 'AAbackend'
 
@@ -23,9 +23,7 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALECT,
-                                                                           DRIVER, USERNAME, PASSWORD, HOST, PORT,
-                                                                           DATABASE)
+    SQLALCHEMY_DATABASE_URI = "{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE)
 
 
 class TestingConfig(Config):
