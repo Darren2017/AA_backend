@@ -13,7 +13,7 @@ def chat_main():
     if cus.confirm(token):
         try:
             chatlist = []
-            chat = Chat.query.query.all()
+            chat = Chat.query.all()
             ch = []
             for c in chat:
                 if id in c.customer_id:
