@@ -20,6 +20,75 @@ tags:
 
 paths:
 
+  /oppenid/:
+    get:
+      tags:
+      - "auth"
+      summary: 获取oppenid
+      description: 访问获取oppenid
+      parameters:
+        - in: header
+          name: code
+          required: true
+          type: string
+      responses: 
+        200:
+          description: OK
+          schema:
+            required: 
+              - oppenid
+            properties: 
+              oppenid:
+                type: string
+        401:
+          description: 用户认证失败
+
+  /customer/signop/:
+    post:
+      tags:
+      - "auth"
+      summary: 注册
+      description: 注册
+      parameters:
+      - name: openid
+        in: header
+        description: oppenid
+        type: string
+        required: true
+      responses:
+        200:
+          description: OK 
+        401:
+          description: forbidden
+        500: 
+          description: server wrong
+
+  /customer/signin/:
+    post:
+      tags:
+      - "auth"
+      summary: 登陆
+      description: 登陆
+      parameters:
+        - in: header
+          name: oppenid
+          description: oppenid
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            required:
+              - token
+            properties:
+              token:
+                description: 密钥
+                type: string
+        401: 
+          description: forbidden
+        500: 
+          description: server wrong
+
   /customer/main/:
     get:
       tags:
@@ -36,7 +105,7 @@ paths:
           name: id
           description: 用户ID
           required: true
-          type: integer
+          type: string
       responses:
         200: 
           description: OK
@@ -49,22 +118,17 @@ paths:
                 - price
                 - time
                 - ps
-            properties:
-              id: 
-                description: 消费记录ID
-                type: integer
-              class:
-                description: 消费类别
-                type: string
-              price:
-                description: 消费金额
-                type: integer
-              time:
-                description: 消费时间
-                type: string
-              ps: 
-                description: 消费描述
-                type: string
+              properties:
+                id: 
+                  type: string
+                class:
+                  type: string
+                price:
+                  type: integer
+                time:
+                  type: string
+                ps: 
+                  type: string
         401:
           description: 登陆出错
         500:
@@ -154,7 +218,7 @@ paths:
                   type: string
                 customer_id:
                   description: 参与者ID，用分号分割
-                  type: string
+                  type: array
                 consumption:
                   description: 消费总金额
                   type: integer
@@ -189,87 +253,21 @@ paths:
             type: array
             items:
               required:
-                - allprice
-                - price1
-                - price2
-                - price3
-                - price4
-              properties:
-                allprice:
-                  description: 总消费
-                  type: integer
-                price1:
-                  description: 消费类别1
-                  type: integer
-                price2:
-                  description: 消费类别2
-                  type: integer
-                price3:
-                  description: 消费类别3
-                  type: integer
-                price4:
-                  description: 消费类别4
-                  type: integer
-        401:
-          description: 登陆出错
-        500:
-          description: 服务器端错误
-
-  /chat/{class}/detail/{id}/:
-    get:
-      tags:
-      - "chat"
-      summary: 群花费明细
-      description: 分类别查看花费，类似流水账单
-      parameters:
-      - in: path
-        name: class
-        required: true
-        description: 消费类别
-        type: string
-      - in: path
-        name: id
-        required: true
-        description: 群聊ID
-        type: integer
-      - in: header
-        name: token
-        description: 用户身份验证
-        type: string
-      responses:
-        200:
-          description: OK
-          schema:
-            type: array
-            items:
-              required:
                 - id
                 - class
                 - price
                 - time
-                - customer_id
                 - ps
               properties:
-                id:
-                  description: 消费记录ID
-                  type: integer
+                id: 
+                  type: string
                 class:
-                  description: 消费类别
                   type: string
                 price:
-                  description: 花费金额
                   type: integer
                 time:
-                  description: 消费时间
                   type: string
-                customer_id: 
-                  description: 消费者ID
-                  type: integer
-                chat_id:
-                  description: 群聊ID 
-                  type: integer
-                ps:
-                  description: 消费记录描述
+                ps: 
                   type: string
         401:
           description: 登陆出错
@@ -286,11 +284,13 @@ definitions:
       - price
       - time
       - customer_id
+      - customer_name
+      - customer_header_image
       - ps
     properties:
       id:
         description: 消费记录ID
-        type: integer
+        type: string
       class:
         description: 消费类别
         type: string
@@ -303,6 +303,12 @@ definitions:
       customer_id: 
         description: 消费者ID
         type: integer
+      customer_name:
+        description: 消费者头像
+        type: string
+      customer_header_image:
+        description: 消费者头像
+        type: string
       chat_id:
         description: 群聊ID 
         type: integer
@@ -315,6 +321,7 @@ definitions:
     required:
       - id
       - username
+      - headimage
       - chat_id
       - consumption
       - class1
@@ -323,13 +330,20 @@ definitions:
       - class4
       - class5
       - class6
+      - class7
+      - class8
+      - class9
+      - class10
     properties:
       id:
         description: 消费者ID
-        type: integer
+        type: string
       username:
         description: 消费者姓名
         type: string
+      headimage:
+        description: 用户头像
+        type: string 
       chat_id:
         description: 消费者参与的群聊ID,用分号分割
         type: string
@@ -354,11 +368,23 @@ definitions:
       class6:
         description: 消费类别6的花费
         type: integer
+      class7:
+        description: 消费类别7的花费
+        type: integer
+      class8:
+        description: 消费类别8的花费
+        type: integer
+      class9:
+        description: 消费类别9的花费
+        type: integer
+      class10:
+        description: 消费类别10的花费
+        type: integer
   Chat:
     description: 群消费记录
     type: object
     required:
-      - id
+      - string
       - chatname
       - customer_id
       - consumption
@@ -402,4 +428,16 @@ definitions:
         type: integer
       class6:
         description: 消费类别6的花费
+        type: integer
+      class7:
+        description: 消费类别7的花费
+        type: integer
+      class8:
+        description: 消费类别8的花费
+        type: integer
+      class9:
+        description: 消费类别9的花费
+        type: integer
+      class10:
+        description: 消费类别10的花费
         type: integer
