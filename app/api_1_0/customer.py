@@ -11,7 +11,7 @@ def customer_main():
     id = request.get_json().get('id')
     pagenumber = request.get_json().get('pagenumber')
 
-    customer = Customer.query.filter_by(id=id)
+    customer = Customer.query.filter_by(id=id).first()
     if customer.confirm(token):
         relist = []
         allre = []
@@ -32,7 +32,7 @@ def customer_main():
             myclass = rec.myclass
             price = rec.price
             time = rec.time
-            ps = rec.time
+            ps = rec.ps
             chat_id = rec.chat_id
             relist.append({
                 "id":id,
