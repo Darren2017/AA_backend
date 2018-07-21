@@ -69,3 +69,77 @@ def crecoder():
     else:
         return jsonify({
         }), 401
+
+
+@api.route('/chat/group/', methods=['POST'])
+def chat_group():
+    token = request.headers['token']
+    uid = request.get_json().get('user_id')
+    username = request.get_json().get('username')
+    chatimage = request.get_json().get('chatimage')
+
+    customer = Customer.query.filter_by(id=uid).first()
+    if customer.confirm(token):
+        try:
+            chat = Chat(username=username, customer_id=uid, consumption=0.0, chatimage=chatimage)
+            db.session.add(chat)
+            db.session.commit()
+            return jsonify({
+            }), 200
+        except:
+            return jsonify({
+            }), 500
+    return jsonify({
+    }), 401
+
+
+@api.route('/chat/invitation/', methods=['POST'])
+def invitation():
+    token = request.headers['token']
+    uid = request.get_json().get('user_id')
+    cid = request.get_json().get('chat_id')
+    customer = Customer.query.filter_by(id=uid).first()
+    if customer.confirm(token):
+        try:
+            chat = Chat.query.filter_by(id=cid).first()
+            chat.customer_id = chat.customer_id + ';' + uid
+            db.session.add(chat)
+            db.session.commit()
+            return  jsonify({
+            }), 200
+        except:
+            return jsonify({
+            }), 500
+    else:
+        return jsonify({
+        }), 401
+
+
+@api.route('/chat/water/', methods=['POST'])
+def water():
+    token = request.headers['token']
+    cid = request.get_json().get('chat_id')
+    customer = Customer.query.filter_by(id=uid).first()
+    if customer.confirm(token):
+        chatlist=[]
+        try:
+            chat = Recoder.query.filter_by(id=cid)
+            for c in chat:
+                ch = {
+                    "day":c.time[8:10],
+                    "year_month":c.time[:8],
+                    "myclass":c.myclass,
+                    "price":c.price,
+                    "customer_name":c.customer_name,
+                    "ps":c.ps
+                }
+                chatlist.append(ch)
+            return jsonify({
+                "chatlist":chatlist
+            }),200
+        except:
+            return jsonify({
+            }),500
+    else:
+        return jsonify({
+        }),401

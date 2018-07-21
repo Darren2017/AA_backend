@@ -302,53 +302,118 @@ paths:
         500:
           description: 服务器端错误
 
-  /chat/detail/:
+  /chat/group/:
     post:
       tags:
-      - "customer"
-      summary: 群记账明细
-      description: 展示一个群组的各类别花费，在此可以查看各个类别的具体花费
+      - "chat"
+      summary: 加入群
+      description: username代表着群名称而不是消费者名称
       parameters:
-        - name: id
+        - in: header
+          name: header
+          required: true
+          type: string
+          description: 用户验证
+        - name: info
           in: body
           schema:
-            required: 
-              - id
+            required:
+              - user_id
+              - username
+              - chatimage
             properties:
-              id:
-                description: 用户ID
+              user_id:
                 type: string
-        - in: header
-          name: token
-          description: 用户验证
-          type: string
+              username:
+                type: string
+              chatimage:
+                type: string
       responses:
         200:
           description: OK
+        401:
+          description: forbidden
+        500:
+          description: server wrong
+
+  /chat/invitation/:
+    post:
+      tags:
+      - "chat"
+      summary: 邀请加群
+      description: nothing
+      parameters:
+        - in: header
+          name: token
+          required: true
+          type: string
+          description: 用户验证
+        - name: info
+          in: body
+          schema: 
+            required: 
+              - user_id
+              - chat_id
+            properties:
+              user_id:
+                type: string
+              chat_id:
+                type: integer
+      responses:
+        200:
+          description: OK
+        401:
+          description: forbidden
+        500:
+          description: server wrong
+
+  /chat/water/:
+    post:
+      tags:
+      - "chat"
+      summary: 群流水
+      description: nothing
+      parameters:
+      - in: header
+        name: token
+        required: true
+        type: string
+        description: 用户验证
+      - in: header
+        name: chat_id
+        required: true
+        type: integer
+        description: 群聊ID
+      responses:
+        200:
+          description: OK 
           schema:
             type: array
             items:
               required:
-                - id
+                - day
+                - year_month
                 - myclass
                 - price
-                - time
+                - customer_name
                 - ps
               properties:
-                id: 
+                day:
+                  type: string
+                year_month:
                   type: string
                 myclass:
                   type: string
                 price:
                   type: integer
-                time:
+                customer_name:
                   type: string
-                ps: 
+                ps:
                   type: string
         401:
-          description: 登陆出错
+          description: forbidden
         500:
-          description: 服务器端错误
+          description: server wrong
 
 definitions:
   Recoder:
