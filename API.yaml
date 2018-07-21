@@ -1,0 +1,405 @@
+swagger: "2.0"
+
+info:
+  version: 0.0.1
+  title:  AA platform
+  description: the first edtion API for AA platform
+  
+schemes: 
+  - https
+host: www.muxier.top
+basePath: /api
+
+tags:
+- name: "auth"
+  description: 验证权限
+- name: "customer"
+  description: 消费者界面
+- name: "chat"
+  description: 群聊界面
+
+paths:
+
+  /customer/main/:
+    get:
+      tags:
+      - "customer"
+      summary: 账单主界面
+      description: 账单的流水明细
+      parameters: 
+        - in: header
+          name: token
+          description: 身份验证
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: 用户ID
+          required: true
+          type: integer
+      responses:
+        200: 
+          description: OK
+          schema:
+            type: array
+            items: 
+              required:
+                - id
+                - class
+                - price
+                - time
+                - ps
+            properties:
+              id: 
+                description: 消费记录ID
+                type: integer
+              class:
+                description: 消费类别
+                type: string
+              price:
+                description: 消费金额
+                type: integer
+              time:
+                description: 消费时间
+                type: string
+              ps: 
+                description: 消费描述
+                type: string
+        401:
+          description: 登陆出错
+        500:
+          description: 服务器端错误
+
+  /customer/recoder/{id}/:
+    post:
+      tags:
+      - "customer"
+      summary: 新增个人消费
+      description: 个人记账
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: 用户ID
+          type: integer
+        - in: header
+          name: token
+          description: 身份验证
+          type: string
+        - name: 增加消费记录
+          in: body
+          schema:
+            required: 
+              - class
+              - price
+              - time
+              - ps
+            properties:
+              class:
+                description: 消费类别
+                type: string
+              price:
+                description: 消费金额
+                type: integer
+              time:
+                description: 消费时间
+                type: string
+              ps:
+                description: 消费描述
+                type: string
+      responses:
+        200:
+          description: OK
+        401:
+          description: forbidden
+        500:
+          description: wrong on server
+        
+
+  /chat/main/{id}/:
+    get:
+      tags:
+      - "chat"
+      summary: 用户群聊总列表
+      description: 显示用户参加的全部群聊
+      parameters:
+        - in: header
+          name: token
+          description: 身份验证
+          required: true
+          type: string
+        - in: path
+          name: id
+          description: 用户ID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              required:
+                - id
+                - chatname
+                - customer_id
+                - consumption
+                - ps
+              properties:
+                id:
+                  description: 群聊ID
+                  type: integer
+                username:
+                  description: 群聊昵称
+                  type: string
+                customer_id:
+                  description: 参与者ID，用分号分割
+                  type: string
+                consumption:
+                  description: 消费总金额
+                  type: integer
+                ps:
+                  description:  群聊描述
+                  type: string
+        401:
+          description: 登陆出错
+        500:
+          description: 服务器端错误
+
+  /chat/detail/{id}/:
+    get:
+      tags:
+      - "customer"
+      summary: 群记账明细
+      description: 展示一个群组的各类别花费，在此可以查看各个类别的具体花费
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: 群聊ID
+          type: integer
+        - in: header
+          name: token
+          description: 用户验证
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              required:
+                - allprice
+                - price1
+                - price2
+                - price3
+                - price4
+              properties:
+                allprice:
+                  description: 总消费
+                  type: integer
+                price1:
+                  description: 消费类别1
+                  type: integer
+                price2:
+                  description: 消费类别2
+                  type: integer
+                price3:
+                  description: 消费类别3
+                  type: integer
+                price4:
+                  description: 消费类别4
+                  type: integer
+        401:
+          description: 登陆出错
+        500:
+          description: 服务器端错误
+
+  /chat/{class}/detail/{id}/:
+    get:
+      tags:
+      - "chat"
+      summary: 群花费明细
+      description: 分类别查看花费，类似流水账单
+      parameters:
+      - in: path
+        name: class
+        required: true
+        description: 消费类别
+        type: string
+      - in: path
+        name: id
+        required: true
+        description: 群聊ID
+        type: integer
+      - in: header
+        name: token
+        description: 用户身份验证
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              required:
+                - id
+                - class
+                - price
+                - time
+                - customer_id
+                - ps
+              properties:
+                id:
+                  description: 消费记录ID
+                  type: integer
+                class:
+                  description: 消费类别
+                  type: string
+                price:
+                  description: 花费金额
+                  type: integer
+                time:
+                  description: 消费时间
+                  type: string
+                customer_id: 
+                  description: 消费者ID
+                  type: integer
+                chat_id:
+                  description: 群聊ID 
+                  type: integer
+                ps:
+                  description: 消费记录描述
+                  type: string
+        401:
+          description: 登陆出错
+        500:
+          description: 服务器端错误
+
+definitions:
+  Recoder:
+    description: 消费记录表单
+    type: object
+    required: 
+      - id
+      - class
+      - price
+      - time
+      - customer_id
+      - ps
+    properties:
+      id:
+        description: 消费记录ID
+        type: integer
+      class:
+        description: 消费类别
+        type: string
+      price:
+        description: 花费金额
+        type: integer
+      time:
+        description: 消费时间
+        type: string
+      customer_id: 
+        description: 消费者ID
+        type: integer
+      chat_id:
+        description: 群聊ID 
+        type: integer
+      ps:
+        description: 消费记录描述
+        type: string
+  Customer:
+    description: 消费者记录
+    type: object
+    required:
+      - id
+      - username
+      - chat_id
+      - consumption
+      - class1
+      - class2
+      - class3
+      - class4
+      - class5
+      - class6
+    properties:
+      id:
+        description: 消费者ID
+        type: integer
+      username:
+        description: 消费者姓名
+        type: string
+      chat_id:
+        description: 消费者参与的群聊ID,用分号分割
+        type: string
+      consumption:
+        description: 消费总金额
+        type: integer
+      class1:
+        description: 消费类别1的花费
+        type: integer
+      class2:
+        description: 消费类别2的花费
+        type: integer
+      class3:
+        description: 消费类别3的花费
+        type: integer
+      class4:
+        description: 消费类别4的花费
+        type: integer
+      class5:
+        description: 消费类别5的花费
+        type: integer
+      class6:
+        description: 消费类别6的花费
+        type: integer
+  Chat:
+    description: 群消费记录
+    type: object
+    required:
+      - id
+      - chatname
+      - customer_id
+      - consumption
+      - ps
+      - class1
+      - class2
+      - class3
+      - class4
+      - class5
+      - class6
+    properties:
+      id:
+        description: 群聊ID
+        type: integer
+      username:
+        description: 群聊昵称
+        type: string
+      customer_id:
+        description: 参与者ID，用分号分割
+        type: string
+      consumption:
+        description: 消费总金额
+        type: integer
+      ps:
+        description:  群聊描述
+        type: string
+      class1:
+        description: 消费类别1的花费
+        type: integer
+      class2:
+        description: 消费类别2的花费
+        type: integer
+      class3:
+        description: 消费类别3的花费
+        type: integer
+      class4:
+        description: 消费类别4的花费
+        type: integer
+      class5:
+        description: 消费类别5的花费
+        type: integer
+      class6:
+        description: 消费类别6的花费
+        type: integer
