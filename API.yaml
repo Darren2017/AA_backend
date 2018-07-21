@@ -103,7 +103,7 @@ paths:
           description: server wrong
 
   /customer/main/:
-    get:
+    post:
       tags:
       - "customer"
       summary: 账单主界面
@@ -143,7 +143,7 @@ paths:
                 - chat_id
               properties:
                 id: 
-                  type: string
+                  type: integer
                 myclass:
                   type: string
                 price:
@@ -161,18 +161,13 @@ paths:
         500:
           description: 服务器端错误
 
-  /customer/recoder/{id}/:
+  /customer/recoder/:
     post:
       tags:
       - "customer"
       summary: 新增个人消费
       description: 个人记账
       parameters:
-        - in: path
-          name: id
-          required: true
-          description: 用户ID
-          type: integer
         - in: header
           name: token
           description: 身份验证
@@ -181,11 +176,19 @@ paths:
           in: body
           schema:
             required: 
+              - id
               - myclass
               - price
               - time
+              - chat_id
               - ps
             properties:
+              id:
+                description: 用户ID
+                type: string
+              chat_id:
+                description: 群聊ID
+                type: integer
               myclass:
                 description: 消费类别
                 type: string
@@ -207,8 +210,8 @@ paths:
           description: wrong on server
         
 
-  /chat/main/{id}/:
-    get:
+  /chat/main/:
+    post:
       tags:
       - "chat"
       summary: 用户群聊总列表
@@ -219,11 +222,15 @@ paths:
           description: 身份验证
           required: true
           type: string
-        - in: path
-          name: id
-          description: 用户ID
-          required: true
-          type: integer
+        - name: id
+          in: body
+          schema:
+            required:
+              - id
+            properties:
+              id:
+                type: string
+                description: 用户ID
       responses:
         200:
           description: OK
@@ -233,42 +240,38 @@ paths:
               required:
                 - id
                 - chatname
-                - customer_id
-                - consumption
-                - ps
+                - chatimage
               properties:
                 id:
                   description: 群聊ID
                   type: integer
-                username:
+                chatname:
                   description: 群聊昵称
                   type: string
-                customer_id:
-                  description: 参与者ID，用分号分割
-                  type: array
-                consumption:
-                  description: 消费总金额
-                  type: integer
-                ps:
-                  description:  群聊描述
+                chatimage:
+                  description: 群头像
                   type: string
         401:
           description: 登陆出错
         500:
           description: 服务器端错误
 
-  /chat/detail/{id}/:
-    get:
+  /chat/detail/:
+    post:
       tags:
       - "customer"
       summary: 群记账明细
       description: 展示一个群组的各类别花费，在此可以查看各个类别的具体花费
       parameters:
-        - in: path
-          name: id
-          required: true
-          description: 群聊ID
-          type: integer
+        - name: id
+          in: body
+          schema:
+            required: 
+              - id
+            properties:
+              id:
+                description: 用户ID
+                type: string
         - in: header
           name: token
           description: 用户验证
@@ -373,6 +376,7 @@ definitions:
       - id
       - chatname
       - customer_id
+      - chatimage
       - consumption
       - ps
       - myclass1
@@ -390,6 +394,9 @@ definitions:
         type: string
       customer_id:
         description: 参与者ID，用分号分割
+        type: string
+      chatimage:
+        description: 群头像
         type: string
       consumption:
         description: 消费总金额
