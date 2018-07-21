@@ -155,8 +155,15 @@ def member():
         try:
             chat = Chat.query.filter_by(id=cid).first()
             ans = chat.customer_id.split(';')
+            me = []
+            for m in ans:
+                cu = Customer.query.filter_by(id = m).first()
+                me.append({
+                    "username":cu.username,
+                    "headimage":headimage
+                })
             return jsonify({
-                "list":ans
+                "list":me
             }),200
         except:
             return jsonify({
