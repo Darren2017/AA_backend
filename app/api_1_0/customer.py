@@ -60,7 +60,7 @@ def recoder():
     price = request.get_json().get('price')
     time = request.get_json().get('time')
     ps = request.get_json().get('ps')
-    customer = Customer.query.filter_by(id = id).first()
+    customer = Customer.query.filter_by(id=id).first()
     if customer.confirm(token):
         customer_image = customer.headimage
         customer_name = customer.username
