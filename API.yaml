@@ -290,7 +290,7 @@ definitions:
     properties:
       id:
         description: 消费记录ID
-        type: string
+        type: integer
       class:
         description: 消费类别
         type: string
@@ -324,16 +324,6 @@ definitions:
       - headimage
       - chat_id
       - consumption
-      - class1
-      - class2
-      - class3
-      - class4
-      - class5
-      - class6
-      - class7
-      - class8
-      - class9
-      - class10
     properties:
       id:
         description: 消费者ID
@@ -350,41 +340,12 @@ definitions:
       consumption:
         description: 消费总金额
         type: integer
-      class1:
-        description: 消费类别1的花费
-        type: integer
-      class2:
-        description: 消费类别2的花费
-        type: integer
-      class3:
-        description: 消费类别3的花费
-        type: integer
-      class4:
-        description: 消费类别4的花费
-        type: integer
-      class5:
-        description: 消费类别5的花费
-        type: integer
-      class6:
-        description: 消费类别6的花费
-        type: integer
-      class7:
-        description: 消费类别7的花费
-        type: integer
-      class8:
-        description: 消费类别8的花费
-        type: integer
-      class9:
-        description: 消费类别9的花费
-        type: integer
-      class10:
-        description: 消费类别10的花费
-        type: integer
+      
   Chat:
     description: 群消费记录
     type: object
     required:
-      - string
+      - id
       - chatname
       - customer_id
       - consumption
