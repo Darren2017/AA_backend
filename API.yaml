@@ -102,7 +102,7 @@ paths:
         500: 
           description: server wrong
 
-  /customer/{id}/main/{pagenumber}:
+  /customer/main/:
     get:
       tags:
       - "customer"
@@ -114,16 +114,19 @@ paths:
           description: 身份验证
           required: true
           type: string
-        - in: path
-          name: id
-          description: 用户ID
-          required: true
-          type: string
-        - in: path
-          name: pagenumber
-          description: 页数
-          required: true
-          type: integer
+        - name: info
+          in: body
+          schema:
+            required: 
+              - id
+              - pagenumber
+            properties:
+              id:
+                description: 消费者ID
+                type: string
+              pagenumber:
+                description: 第几页
+                type: integer
       responses:
         200: 
           description: OK
@@ -137,6 +140,7 @@ paths:
                 - time
                 - ps
                 - count
+                - chat_id
               properties:
                 id: 
                   type: string
@@ -149,6 +153,8 @@ paths:
                 ps: 
                   type: string
                 count:
+                  type: integer
+                chat_id:
                   type: integer
         401:
           description: 登陆出错
