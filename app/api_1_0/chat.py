@@ -123,7 +123,7 @@ def water():
     if customer.confirm(token):
         chatlist=[]
         try:
-            chat = Recoder.query.filter_by(id=cid)
+            chat = Recoder.query.filter_by(chat_id=cid)
             for c in chat:
                 ch = {
                     "day":c.time[8:10],
@@ -172,3 +172,18 @@ def member():
     else:
         return jsonify({
         }),401
+
+@api.route('/chat/image/', methods=['POST'])
+def image():
+    chat_id = request.get_json().get('chat_id')
+    try:
+        chat = Chat.query.filter_by(id = chat_id).first()
+        im = chat.chatimage
+        name = chat.username
+        return jsonify({
+            "chatimage":im,
+            "chatname":name
+        })
+    except:
+        return jsonify({
+        }), 500
