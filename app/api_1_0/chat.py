@@ -126,10 +126,11 @@ def water():
             chat = Recoder.query.filter_by(id=cid)
             for c in chat:
                 ch = {
-                    "day":c.time[7:9],
-                    "year_month":c.time[:7],
+                    "day":c.time[8:10],
+                    "year_month":c.time[:4] + '.' + c.time[5:7],
                     "myclass":c.myclass,
                     "price":c.price,
+                    "customerimage":c.customer_header_image,
                     "customer_name":c.customer_name,
                     "ps":c.ps
                 }
@@ -160,7 +161,7 @@ def member():
                 cu = Customer.query.filter_by(id = m).first()
                 me.append({
                     "username":cu.username,
-                    "headimage":headimage
+                    "headimage":cu.headimage
                 })
             return jsonify({
                 "list":me

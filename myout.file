@@ -1,0 +1,40 @@
+nohup: ignoring input
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 192-207-044
+127.0.0.1 - - [22/Jul/2018 08:51:48] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:51:49] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:52:38] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:52:38] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:53:12] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:53:13] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:54:21] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:54:22] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:55:00] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:55:00] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:55:59] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:55:59] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:56:29] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:56:29] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:56:41] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:56:41] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 08:56:50] "POST /api/chat/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:00:09] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:00:09] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:00:09] "POST /api/chat/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:10:09] "GET /api/user/detal/ HTTP/1.0" 404 -
+127.0.0.1 - - [22/Jul/2018 09:10:44] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:10:44] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:10:44] "POST /api/chat/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:11:37] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:11:37] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:11:38] "POST /api/chat/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:13:05] "POST /api/customer/signin/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:13:05] "POST /api/customer/main/ HTTP/1.0" 200 -
+127.0.0.1 - - [22/Jul/2018 09:13:05] "POST /api/chat/main/ HTTP/1.0" 200 -
